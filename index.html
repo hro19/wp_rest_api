@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>WP REST APIテストページ</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(function() {
+          $.getJSON( "http://test55.sakura.ne.jp/wp-json/wp/v2/posts/?filter[post_per_page]=10", function(results) {
+              $.each(results, function(i, item) {
+                 //$("ul#mylist").append("<li>" + item.title.rendered + "</li>");
+
+                  var date = new Date(item.date);
+                  yy = date.getFullYear(date);
+                  //console.log(yy);
+                  mm = date.getMonth() + 1;
+                  //console.log(mm);
+						      dd = date.getDate();
+                  //console.log(dd);
+
+                 $("ul#mylist").append('<li class="flex"><time datetime="' + yy + mm + dd + '">' + yy + '/' + mm + '/' + dd + '</time><a href="' + item.link + '">' + item.title.rendered + '</a></li>');
+              });
+          });
+      });
+    </script>
+  </head>
+  <body>
+    <h2>お知らせ 最新10件</h2>
+    <ul id="mylist">
+
+    </ul>
+  </body>
+</html>
