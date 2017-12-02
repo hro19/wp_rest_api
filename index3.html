@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>WP REST APIテストページ</title>
+  </head>
+  <body>
+    <h2>メンバー 全件</h2>
+    <ul id="mylist">
+    </ul>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(function() {
+          $.getJSON( "http://026.test55.net/wp/wp-json/wp/v2/member/?_embed", function(results) {
+              $.each(results, function(i, item) {
+                 $('ul#mylist').append('<li>'
+                     +'【記事タイトル】' + item.title.rendered
+                     +'<br>'
+                     +'【記事サムネイル_フル画像URL】' + item['_embedded']['wp:featuredmedia'][0]['media_details']['sizes']['full']['source_url']
+                     +'<br>'
+                     +'【記事サムネイル_リサイズ画像URL】' + item['_embedded']['wp:featuredmedia'][0]['media_details']['sizes']['w700']['source_url']
+                     +'<br>'
+                     +'【acf フル画像URL】'　+ item.acf.メッセージ画像.url
+                     +'<br>'
+                     +'【acf リサイズ画像URL】'　+ item.acf.メッセージ画像.sizes.top_slider
+                     +'</li>'
+                     +'<hr>');
+              });
+          });
+      });
+    </script>
+   </body>
+</html>
