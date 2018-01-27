@@ -33,7 +33,7 @@
     },
     methods: {
       getPosts: function(){
-        axios.get( 'http://026.test55.net/wp/wp-json/wp/v2/member/?_embed' )
+        axios.get("http://026.test55.net/wp/wp-json/wp/v2/member/?_embed")
         .then( response => {
           this.posts = response.data;
         } )
