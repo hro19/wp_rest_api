@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>WP REST axiosテストページ</title>
+<script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  </head>
+  <body>
+<div id="test1">
+  <button v-on:click="getPosts()">記事取得</button>
+  <ul v-for="post in posts">
+    <li>
+      <a v-bind:href="post.link" target="_blank">
+        {{post.title.rendered}}<br>
+        {{post.slug}}<br>
+        {{post["_embedded"]["wp:featuredmedia"][0]["media_details"]["sizes"]["full"]["source_url"]}}<br>
+        {{post["_embedded"]["wp:featuredmedia"][0]["media_details"]["sizes"]["thumbnail"]["source_url"]}}<br>
+        {{post.acf.事務所}}<br>
+        {{post.date}}
+
+      </a>
+    </li>
+  </ul>
+</div>
+
+    <script type="text/javascript">
+  new Vue( {
+    el: '#test1',
+    data: {
+      posts: []
+    },
+    methods: {
+      getPosts: function(){
+        axios.get( 'http://026.test55.net/wp/wp-json/wp/v2/member/?_embed' )
+        .then( response => {
+          this.posts = response.data;
+        } )
+        .catch( error => {
+          window.alert( error );
+        } );
+      }
+    }
+  } )
+    </script>
+
+</body>
+</html>
