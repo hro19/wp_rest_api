@@ -9,7 +9,7 @@
   </head>
   <body>
 <div id="test1">
-  <button v-on:click="getPosts()">記事取得</button>
+  <!-- <button v-on:click="getPosts()">記事取得</button> -->
   <ul v-for="post in posts">
     <li>
       <a v-bind:href="post.link" target="_blank">
@@ -31,9 +31,12 @@
     data: {
       posts: []
     },
+    created: function(){
+    	this.getPosts();
+    },
     methods: {
       getPosts: function(){
-        axios.get("http://026.test55.net/wp/wp-json/wp/v2/member/?_embed")
+        axios.get( 'http://026.test55.net/wp/wp-json/wp/v2/member/?_embed' )
         .then( response => {
           this.posts = response.data;
         } )
